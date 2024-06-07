@@ -11,3 +11,7 @@ Task 1 demonstrated the total sales and total profit for each product, category 
 - Cubify CubeX 3D Printer Double Head Print resulted in the highest loss of **29279.9024**.
 - Technology had the highest sales with **2678721**, followed by Furniture with **2422014** and then Office Supplies with **2320067**.
 - Technology had the highest profit with **472045.5663**, followed by Office Supplies with **399637.2214** and then furniture with **60926.4669**.
+
+## Forecasting
+
+The model created used a multi-class Logistic Regression. The data was split 80:20, and chunk splitting was used to ensure that data was taken from a wide range of quantities.
