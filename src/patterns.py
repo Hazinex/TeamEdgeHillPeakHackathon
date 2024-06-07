@@ -40,24 +40,40 @@ def orderSize(df, segmentStr):
     print(f"The average order quantity for the {segmentStr} segment in Technology was {tech}") # Office Supplies
     return [overall, office, furniture, tech]
 
+def catgagoryPrefs(df):
+    officeCount = 0
+    furnitureCount = 0
+    techCount = 0
+    for idx, row in df.iterrows():
+        if row["Category"] == "Office Supplies":
+            officeCount += 1
+        elif row["Category"] == "Furniture":
+            furnitureCount += 1
+        elif row["Category"] == "Technology":
+            techCount += 1
+    return [officeCount, furnitureCount, techCount]
+
+
 # Code for consumer analysis
 consumerDF = dataset[dataset['Segment'] == "Consumer"]
 # purchasePatterns(consumerDF)
 consumerVals = orderSize(consumerDF, "Consumer")
+consumerPrefs = catgagoryPrefs(consumerDF)
 
 # Code for home office
 homeOfficeDF = dataset[dataset['Segment'] == "Home Office"]
 # purchasePatterns(homeOfficeDF)
 homeOfficeVals = orderSize(homeOfficeDF, "Home Office")
+homeOfficePrefs = catgagoryPrefs(homeOfficeDF)
 
 # Code for Corporate
 corporateDF = dataset[dataset['Segment'] == "Corporate"]
 # purchasePatterns(corporateDF)
 corporateVals = orderSize(corporateDF, "Corporate")
+corporatePrefs = catgagoryPrefs(corporateDF)
 
 ex = ['Overall','Office','Furniture','Technology'] 
 x_axis = np.arange(len(ex))
-print()
 
 fig, ax = plt.subplots()
 ax.bar(x_axis - 0.2, consumerVals, 0.2, label="Consumer")
@@ -67,5 +83,22 @@ ax.set(ylim=[3.6, 3.9])
 ax.set_title("Graph of Order Quantities by Segment and Product Category")
 ax.set_xticks(x_axis, ex)
 ax.set_ylabel("Order Size")
+ax.set_xlabel("Categories")
+ax.legend()
+
+plt.show()
+
+ex2 = ['Office','Furniture','Technology'] 
+x_axis2 = np.arange(len(ex2))
+
+fig2, ax2 = plt.subplots()
+ax2.bar(x_axis2 - 0.2, consumerPrefs, 0.2, label="Consumer")
+ax2.bar(x_axis2, homeOfficePrefs, 0.2, label="Home Office")
+ax2.bar(x_axis2 + 0.2, corporatePrefs, 0.2, label="Corporate")
+ax2.set_title("Graph of Prefered Categories")
+ax2.set_xticks(x_axis2, ex2)
+ax2.set_ylabel("Orders for product Category")
+ax2.set_xlabel("Categories")
+ax2.legend()
 
 plt.show()
